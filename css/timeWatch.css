@@ -1,0 +1,156 @@
+/*------------------------------------------------------------*/
+.container {
+	margin-left: 40px;
+	margin-right: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+/*------------------------------------------------------------*/
+body {
+	font: 14px Arial, Helvetica, sans-serif;
+}
+
+.heading {
+	font-weight: bold;
+	font-size: small;
+}
+.whiteBg {
+	background-color: #ffffff;
+}
+
+.topLine {
+	background-color: #eeeeee;
+	font-size: 12px;
+}
+.totals {
+	background-color: #88ff88;
+	font-size: 12px;
+}
+
+.textRight {
+	text-align: right;
+}
+
+form input {
+	background-color: inherit ;
+}
+
+.textLeft {
+	text-align: left;
+}
+
+.widthSpacer {
+	width: 30px;
+}
+
+.right {
+	margin-left:auto;
+	margin-right:0px;
+}
+
+.textCenter {
+	text-align:center;
+}
+
+.vcenter {
+	margin-top:auto;
+	margin-bottom:auto;
+}
+
+.center {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.handCursor {
+	cursor: pointer;
+}
+.trapCategoryLink {
+	color:black;
+	text-decoration: none;
+}
+.trapLink {
+	color:blue;
+	text-decoration: none;
+}
+.timeWatchFooter {
+	color:#ccc;
+	font: 13px Arial, Helvetica, sans-serif;
+}
+/*------------------------------------------------------------*/
+.copyright {
+	color:#ccc;
+	font: 13px Arial, Helvetica, sans-serif;
+}
+.red {
+	color:red;
+}
+
+.timeWatchZebra0 {
+	background-color:#f8f8f8; 
+}
+.timeWatchZebra1 {
+	background-color:#cfe9ff; 
+}
+.timeWatchZebra2 {
+	background-color:#f8ffff; 
+}
+.timeWatchZebra3 {
+	background-color:#ffffaa; 
+}
+.timeWatchSeparatorRow {
+	background-color:#aaa; 
+}
+.timeWatchSeparatorColumn {
+	background-color:#ddd; 
+}
+.zebra0 {
+	background-color:#e0e0e0; 
+}
+
+.zebra1 {
+	background-color:#88bbff; 
+}
+
+.zebra2 {
+	background-color:#bbddff; 
+}
+
+.zebra3 {
+	background-color:#aff; 
+}
+.zebra4 {
+	background-color:#8cf; 
+}
+
+.zebra5 {
+	background-color:#be0; 
+}
+.zebra6 {
+	background-color:#9e0; 
+}
+
+.hilite {
+	background-color:#ffffc0; 
+}
+
+.keepHilited {
+	background-color:#ffff40; 
+}
+
+.currentRow {
+	background-color:#ffff00; 
+}
+
+.selectClass {
+	background-color: #ccccff;
+}
+
+table, th, td {
+	border-collapse: separate;
+    border: 0px solid black;
+	border-spacing: 3px;
+}
+th, td {
+	padding: 0px;
+}
