@@ -24,6 +24,12 @@ class TimeWatch extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
+	protected function permit() {
+		$ok = Mrecaptcha::ok();
+		/*	Mview::print_r($ok, "ok", basename(__FILE__), __LINE__, null, false);	*/
+		return($ok);
+	}
+	/*------------------------------*/
 	protected function before() {
 		ini_set('max_execution_time', 10);
 		ini_set("memory_limit", "5M");
@@ -37,7 +43,7 @@ class TimeWatch extends Mcontroller {
 			$this->Mview->showTpl("head.tpl");
 			$this->Mview->showTpl("header.tpl");
 			$this->Mview->assign("RE_CAPTACH_SITE_KEY", RE_CAPTACH_SITE_KEY);
-			if ( $this->logionId ) {
+			if ( $this->loginId ) {
 				$menu = new Menu;
 				$menu->index();
 			}
@@ -290,6 +296,71 @@ class TimeWatch extends Mcontroller {
 		$this->exportToExcel($rows, "timewatch.$user.$month");
 	}
 	/*------------------------------------------------------------*/
+	/*------------------------------------------------------------*/
+	public function register() {
+		$email = $_REQUEST['email'];
+		if ( ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$this->Mview->msg("register: '$email': Not an email");
+			return;
+		}
+		require_once(M_DIR."/MmailJet.class.php");
+		$m = new MmailJet;
+		$httpCode = null;
+
+		$key = sha1(rand(1000, 1000000));
+		$cr = sha1($email);
+		$mkey = "RegisterEmail-$key";
+		$ttl = 900;
+		$this->Mmemcache->set($mkey, $email, $ttl);
+		$message = $this->Mview->render("registerEmail.tpl", array(
+			'key' => $key,
+			'cr' => $cr,
+		));
+		$m->mail($email, "Create Account @ timewatch.theora.com", $message, $httpCode);
+		if ( $httpCode == 200 )
+			$this->Mview->msg("Please click the link in the email to complete the registration");
+		else
+			$this->Mview->error("Email error");
+	}
+	/*------------------------------*/
+	public function registration() {
+		$key = @$_REQUEST['key'];
+		$cr = @$_REQUEST['cr'];
+		if ( ! $key || ! $cr ) {
+			$this->Mview->error("No key&cr");
+			return;
+		}
+		$mkey = "RegisterEmail-$key";
+		$email = $this->Mmemcache->get($mkey);
+		if ( ! $email ) {
+			$this->Mview->error("Expired");
+			return;
+		}
+		$crcr = sha1($email);
+		if ( $cr != $crcr ) {
+			$this->Mview->error("Wrong email");
+			return;
+		}
+		$str = $this->Mmodel->str($email);
+		$sql = "select loginName from users where loginName = '$str'";
+		$dbEmail = $this->Mmodel->getString($sql);
+		if ( $dbEmail ) {
+			$this->Mview->error("Email $email exists");
+			return;
+		}
+		$rnd = rand(100, 1000);
+		$sha1 = sha1($rnd);
+		$passwd = substr($sha1, 17, 6);
+		$dbPasswd = sha1($passwd);
+		$id = $this->Mmodel->dbInsert("users", array(
+		));
+		if ( ! $id ) {
+			$this->Mview->error("insert failed");
+			return;
+		}
+		$this->Mview->urlMsg("registration successful", "http://timewatch.theora.com");
+		$this->Mview->msg("password is $passwd");
+	}
 	/*------------------------------------------------------------*/
 	public function changePasswd() {
 		$this->Mview->showTpl("admin/changePasswd.tpl");
