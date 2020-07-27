@@ -36,6 +36,7 @@ class TimeWatch extends Mcontroller {
 		if ( $this->showMargins()) {
 			$this->Mview->showTpl("head.tpl");
 			$this->Mview->showTpl("header.tpl");
+			$this->Mview->assign("RE_CAPTACH_SITE_KEY", RE_CAPTACH_SITE_KEY);
 			if ( $this->logionId ) {
 				$menu = new Menu;
 				$menu->index();
