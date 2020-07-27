@@ -353,6 +353,8 @@ class TimeWatch extends Mcontroller {
 		$passwd = substr($sha1, 17, 6);
 		$dbPasswd = sha1($passwd);
 		$id = $this->Mmodel->dbInsert("users", array(
+			'loginName' => $email,
+			'passwd' => $dbPasswd,
 		));
 		if ( ! $id ) {
 			$this->Mview->error("insert failed");
