@@ -13,9 +13,11 @@ $Mmodel = new Mmodel;
 $Mview->holdOutput();
 /*------------------------------------------------------------*/
 $timeWatchLogin = new TimeWatchLogin;
-if ( isset($_REQUEST['logOut']) )
+if ( isset($_REQUEST['logOut']) ) {
 	$timeWatchLogin->logOut();
-$timeWatchLogin->enterSession();
+} else {
+	$timeWatchLogin->enterSession();
+}
 $timeWatch = new TimeWatch;
 $timeWatch->control();
 $Mview->flushOutput();
