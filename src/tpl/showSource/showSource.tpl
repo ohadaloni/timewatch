@@ -15,8 +15,8 @@
 			</table>
 		</td>
 		<td valign="top">
-			{if $sourceFile}
-				<h4>{$sourceFile}</h4>
+			{if $file}
+				<h4>{$file}</h4>
 				{$source}
 			{/if}
 		</td>
