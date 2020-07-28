@@ -12,12 +12,10 @@ $Mview = new Mview;
 $Mmodel = new Mmodel;
 $Mview->holdOutput();
 /*------------------------------------------------------------*/
-$timeWatch = new TimeWatch;
 $timeWatchLogin = new TimeWatchLogin;
-if ( isset($_REQUEST['logOut']) ) {
-	$timeWatch = new TimeWatch;
+if ( isset($_REQUEST['logOut']) )
 	$timeWatchLogin->logOut();
-}
+$timeWatch = new TimeWatch;
 $timeWatch->control();
 $Mview->flushOutput();
 /*------------------------------------------------------------*/
