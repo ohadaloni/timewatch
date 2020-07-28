@@ -3,10 +3,11 @@
 		<table>
 			<tr style="background-color:#def;">
 				<td>
-					Email: <input type="text" size="40" placeholder="email" name="loginName"><br />
+					Email:<br />
+					<input type="text" size="40" name="loginName"><br />
 				</td>
 				<td>
-					Password: <input type="password" size="20" placeholder="Password" name="passwd"><br />
+					Password: <input type="password" size="20" name="passwd"><br />
 				</td>
 				<td>
 					<div
@@ -25,7 +26,8 @@
 		<table>
 			<tr style="background-color:#fa7;">
 				<td>
-					Email: <input type="text" size="40" placeholder="email" name="email">
+					Email:<br />
+					<input type="text" size="40" name="email">
 				</td>
 				<td>
 					<div
@@ -44,7 +46,8 @@
 		<table>
 			<tr style="background-color:#faa;">
 				<td>
-					Email: <input type="text" size="40" placeholder="email" name="email">
+					Email:<br />
+					<input type="text" size="40" name="email">
 				</td>
 				<td>
 					<div
