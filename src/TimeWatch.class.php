@@ -26,8 +26,15 @@ class TimeWatch extends Mcontroller {
 	/*------------------------------------------------------------*/
 	protected function permit() {
 		$ok = Mrecaptcha::ok();
-		/*	Mview::print_r($ok, "ok", basename(__FILE__), __LINE__, null, false);	*/
-		return($ok);
+		if ( ! $ok )
+			return(false);
+		$action = $this->action;
+		if ( $action == 'index' )
+			return(true);
+		$loginId = $this->loginId;
+		if ( $loginId )
+			return(true);
+		 return(false);
 	}
 	/*------------------------------*/
 	protected function before() {
