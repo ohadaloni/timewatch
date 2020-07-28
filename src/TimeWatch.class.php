@@ -303,6 +303,40 @@ class TimeWatch extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
+	public function forgotPass() {
+		$email = $_REQUEST['email'];
+		if ( ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$this->Mview->msg("register: '$email': Not an email");
+			return;
+		}
+		$str = $this->Mmodel->str($email);
+		$sql = "select * from users where loginName = '$str'";
+		$loginRow = $this->Mmodel->getRow($sql);
+		if ( ! $loginRow ) {
+			$this->Mview->error("No such email");
+			return;
+		}
+		$rnd = rand(100, 1000);
+		$sha1 = sha1($rnd);
+		$passwd = substr($sha1, 17, 6);
+		$dbPasswd = sha1($passwd);
+		$this->Mmodel->dbUpdate("users", $loginRow['id'], array(
+			'passwd' => $passwd,
+		));
+		require_once(M_DIR."/MmailJet.class.php");
+		$m = new MmailJet;
+		$httpCode = null;
+
+		$message = $this->Mview->render("forgotPassEmail.tpl", array(
+			'passwd' => $passwd,
+		));
+		$m->mail($email, "New password @ timewatch.theora.com", $message, $httpCode);
+		if ( $httpCode == 200 )
+			$this->Mview->msg("New password sent to email");
+		else
+			$this->Mview->error("Email error");
+	}
+	/*------------------------------------------------------------*/
 	public function register() {
 		$email = $_REQUEST['email'];
 		if ( ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
