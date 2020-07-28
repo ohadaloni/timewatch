@@ -15,6 +15,7 @@ $Mview->holdOutput();
 $timeWatchLogin = new TimeWatchLogin;
 if ( isset($_REQUEST['logOut']) )
 	$timeWatchLogin->logOut();
+$timeWatchLogin->enterSession();
 $timeWatch = new TimeWatch;
 $timeWatch->control();
 $Mview->flushOutput();

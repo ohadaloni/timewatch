@@ -14,7 +14,6 @@ class TimeWatch extends Mcontroller {
 		parent::__construct();
 
 		$timeWatchLogin = new TimeWatchLogin;
-		$timeWatchLogin->enterSession();
 		$this->loginId = TimeWatchLogin::loginId();
 		$this->loginName = TimeWatchLogin::loginName();
 		$this->loginType = TimeWatchLogin::loginType();
