@@ -28,7 +28,7 @@ class TimeWatch extends Mcontroller {
 		if ( ! $ok )
 			return(false);
 		$action = $this->action;
-		if ( $action == 'index' )
+		if ( in_array($action, array('index', 'register', 'forgotpass', ) ) )
 			return(true);
 		$loginId = $this->loginId;
 		if ( $loginId )
