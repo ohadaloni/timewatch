@@ -321,7 +321,7 @@ class TimeWatch extends Mcontroller {
 		$passwd = substr($sha1, 17, 6);
 		$dbPasswd = sha1($passwd);
 		$this->Mmodel->dbUpdate("users", $loginRow['id'], array(
-			'passwd' => $passwd,
+			'passwd' => $dbPasswd,
 		));
 		require_once(M_DIR."/MmailJet.class.php");
 		$m = new MmailJet;
