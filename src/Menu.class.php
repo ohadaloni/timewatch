@@ -11,13 +11,6 @@ class Menu extends Mcontroller {
 	/*------------------------------------------------------------*/
 	private function dd() {
 		$menu = array(
-			/*	'Tasks' => array(	*/
-				/*	array(	*/
-					/*	'name' => 'tasks',	*/
-					/*	'title' => 'tasks',	*/
-					/*	'url' => "/tasks",	*/
-				/*	),	*/
-			/*	),	*/
 			'admin' => array(
 				array(
 					'name' => 'showSource',
