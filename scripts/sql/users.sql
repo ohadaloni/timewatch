@@ -1,6 +1,6 @@
 CREATE TABLE users (
   id int auto_increment,
-  loginName varchar(20),
+  loginName varchar(255),
   passwd varchar(255),
   loginType varchar(20),
   landHere text,
