@@ -396,7 +396,9 @@ class TimeWatch extends Mcontroller {
 			$this->Mview->error("insert failed");
 			return;
 		}
-		$this->Mview->urlMsg("registration successful", "http://timewatch.theora.com");
+		$this->Mview->tell("registration successful", array(
+			'url' => "http://timewatch.theora.com",
+		));
 		$this->Mview->msg("password is $passwd");
 	}
 	/*------------------------------------------------------------*/
