@@ -53,7 +53,7 @@ class TimeWatch extends Mcontroller {
 				$menu = new Menu;
 				$menu->index();
 			}
-			$this->showMsgs();
+			$this->Mview->showMsgs();
 		}
 	}
 	/*------------------------------*/
@@ -519,13 +519,6 @@ class TimeWatch extends Mcontroller {
 						return(false);
 					}
 		return(true);
-	}
-	/*------------------------------------------------------------*/
-	private function showMsgs() {
-		$msgs = Msession::get('msgBuf');
-		$this->Mview->showTpl("msgs.tpl", array(
-			'msgs' => $msgs,
-		));
 	}
 	/*------------------------------------------------------------*/
 	private function redir() {
