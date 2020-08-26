@@ -434,7 +434,7 @@ class TimeWatch extends Mcontroller {
 		$this->Mmodel->dbUpdate("users", $loginRow['id'], array(
 			'passwd' => $newDbPasswd,
 		));
-		$this->Mview->msg("Pawword changed");
+		$this->Mview->msg("Password changed");
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
