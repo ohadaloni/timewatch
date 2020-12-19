@@ -2,6 +2,8 @@
 <div class="container">	 
       <form method="post" action="/timewatch/update">
         <h4>Change {$row.date} Timewatch</h4>
+        project: <input type="text" width="12" name="project" value="{$row.project}">
+		<br />
         timeIn: <input type="text" width="12" placeholder="timeIn" name="timeIn" value="{$row.timeIn}">
         timeOut: <input type="text" width="12" placeholder="timeOut" name="timeOut" value="{$row.timeOut}">
 		<br />
