@@ -6,6 +6,8 @@ class TimeWatch extends Mcontroller {
 	protected $loginId;
 	protected $loginType;
 	/*------------------------------*/
+	protected $project;
+	/*------------------------------*/
 	protected $Mmemcache;
 	/*------------------------------*/
 	private $startTime;
@@ -17,6 +19,7 @@ class TimeWatch extends Mcontroller {
 		$this->loginId = TimeWatchLogin::loginId();
 		$this->loginName = TimeWatchLogin::loginName();
 		$this->loginType = TimeWatchLogin::loginType();
+		$this->project = @$_COOKIE['project'];
 
 		$this->Mmemcache = new Mmemcache;
 		Mutils::setenv("debugLevel", 1);
@@ -50,8 +53,8 @@ class TimeWatch extends Mcontroller {
 			$this->Mview->showTpl("header.tpl");
 			$this->Mview->assign("RE_CAPTACH_SITE_KEY", RE_CAPTACH_SITE_KEY);
 			if ( $this->loginId ) {
-				$menu = new Menu;
-				$menu->index();
+				$menu = new Menu();
+				$menu->index($this->project);
 			}
 			$this->Mview->showMsgs();
 		}
@@ -140,6 +143,20 @@ class TimeWatch extends Mcontroller {
 		));
 	}
 	/*------------------------------------------------------------*/
+	public function setProject() {
+		$project = $_REQUEST['project'];
+		if ( $project == 'none' )
+			$this->Mview->setCookie('project', null, -1);
+		else
+			$this->Mview->setCookie('project', $project);
+		$this->redir();
+	}
+	/*------------------------------------------------------------*/
+	public function newProject() {
+		$this->Mview->showTpl("timewatch/newProject.tpl", array(
+		));
+	}
+	/*------------------------------------------------------------*/
 	public function in() {
 		if ( ! $this->loginId )
 			return;
@@ -168,6 +185,7 @@ class TimeWatch extends Mcontroller {
 		} else {
 			$this->Mmodel->dbInsert("timewatch", array(
 				'user' => $user,
+				'project' => $this->project,
 				'month' => $month,
 				'date' => $today,
 				'timeIn' => $now,
