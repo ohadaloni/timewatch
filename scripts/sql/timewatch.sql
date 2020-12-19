@@ -1,6 +1,7 @@
 create table timewatch (
   id int auto_increment,
   user varchar(255),
+  project varchar(255),
   month varchar(8),
   date date,
   timein datetime,
