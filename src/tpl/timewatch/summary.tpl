@@ -2,6 +2,7 @@
 	<table>
 		<tr class="timeWatchHeaderRow">
 			<td>month</td>
+			<td>project</td>
 			<td>time</td>
 			<td></td>
 			<td></td>
@@ -9,11 +10,12 @@
 		{foreach from=$rows item=row}
 			<tr class="timeWatchRow">
 				<td>{$row.month}</td>
+				<td>{$row.project}</td>
 				<td>{$row.time}</td>
 
 
 
-				<td><a href="/timeWatch/show?month={$row.month}"><img
+				<td><a href="/timeWatch/show?month={$row.month}&project={$row.project}"><img
 					border="0"
 					src="/images/list.png"
 					alt="details"
