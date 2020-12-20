@@ -79,11 +79,18 @@ class TimeWatch extends Mcontroller {
 	public function show() {
 		if ( ! $this->loginId )
 			return;
-		$user = $this->loginName;
 		$month = @$_REQUEST['month'];
 		if ( ! $month )
 			$month = date("Y-m");
-		$conds = "user = '$user' and month = '$month'";
+		$project = @$_REQUEST['project'];
+		if ( ! $project )
+			$project = $this->project;
+		if ( $project )
+			$projectCond = "project = '$project'";
+		else
+			$projectCond = "true";
+		$userCond = $this->userCond();
+		$conds = "$userCond and month = '$month' and $projectCond";
 		$sql = "select * from timewatch where $conds order by timeIn";
 		$rows = $this->Mmodel->getRows($sql);
 		foreach ($rows as $key => $row ) {
@@ -101,9 +108,10 @@ class TimeWatch extends Mcontroller {
 		}
 		$totalTime = array_sum(Mutils::arrayColumn($rows, "totalTime"));
 		$totalTimeFmt = $this->totalTimeFmt($totalTime);
-		$this->Mview->showTpl("timewatch/month.tpl", array(
+		$this->Mview->showTpl("timewatch/show.tpl", array(
 			'rows' => $rows,
 			'month' => $month,
+			'project' => $project,
 			'today' => date("Y-m-d"),
 			'yesterday' => date("Y-m-d", time() - 24*60*60),
 			'totalTimeFmt' => $totalTimeFmt,
@@ -113,31 +121,37 @@ class TimeWatch extends Mcontroller {
 	public function summary() {
 		if ( ! $this->loginId )
 			return;
-		$user = $this->loginName;
+		$userCond = $this->userCond();
 	
-		$sql = "select distinct month from timewatch order by 1";
-		$months = $this->Mmodel->getStrings($sql);
+		$fields = "month,project";
+		$orderBy = "month,project";
+		$sql = "select distinct $fields from timewatch where $userCond $orderBy";
+		$monthProjectPairs = $this->Mmodel->getRows($sql);
 
 		$summary = array();
-		foreach ( $months as $key => $month ) {
-			$sql = "select * from timewatch where month = '$month' order by timeIn";
+		foreach ( $monthProjectPairs as $key => $monthProjectPair ) {
+			$month = $monthProjectPair['month'];
+			$project = $monthProjectPair['project'];
+			$conds = "month = '$month' and project = '$project'";
+			$sql = "select * from timewatch where $conds order by timeIn";
 			$rows = $this->Mmodel->getRows($sql);
 			foreach ($rows as $key => $row ) {
 				$totalTime = $this->totalTime($row);
 				$rows[$key]['totalTime'] = $totalTime;
 			}
-			$monthMinutes = Mutils::arrayColumn($rows, 'totalTime');
-			$monthMinutes = array_sum($monthMinutes);
+			$minutes = Mutils::arrayColumn($rows, 'totalTime');
+			$minutes = array_sum($minutes);
 			$summary[] = array(
 				'month' => $month,
-				'totalTime' => $monthMinutes,
-				'time' => $this->totalTimeFmt($monthMinutes),
+				'project' => $project,
+				'totalTime' => $minutes,
+				'time' => $this->totalTimeFmt($minutes),
 			);
 		}
 		$totals = Mutils::arrayColumn($summary, 'totalTime');
 		$totalTime = array_sum($totals);
 		$totalTimeFmt = $this->totalTimeFmt($totalTime);
-		$this->Mview->showTpl("timewatch/months.tpl", array(
+		$this->Mview->showTpl("timewatch/summary.tpl", array(
 			'rows' => $summary,
 			'totalTime' => $totalTimeFmt,
 		));
@@ -268,9 +282,10 @@ class TimeWatch extends Mcontroller {
 	public function export() {
 		if ( ! $this->loginId )
 			return;
-		$user = $this->loginName;
 		$month = $_REQUEST['month'];
-		$conds = "user = '$user' and month = '$month'";
+		$project = $_REQUEST['project'];
+		$userCond = $this->userCond();
+		$conds = "$userCond and month = '$month' and project = '$project'";
 		$fields = array(
 			'null as weekday',
 			'date',
@@ -313,7 +328,7 @@ class TimeWatch extends Mcontroller {
 			$totalMinutes,
 			$totalTime,
 		);
-		$this->exportToExcel($rows, "timewatch.$user.$month");
+		$this->exportToExcel($rows, "timewatch.$user.$project.$month");
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
@@ -540,6 +555,29 @@ class TimeWatch extends Mcontroller {
 					}
 		return(true);
 	}
+	/*------------------------------------------------------------*/
+	private function userCond() {
+		$user = $this->loginName;
+		$userCond = "user = '$user'";
+		return($userCond);
+	}
+	/*------------------------------------------------------------*/
+	private function projectCond() {
+		$project = $this->project;
+		if ( $project )
+			$projectCond = "project = '$project'";
+		else
+			$projectCond = "true";
+		return($projectCond);
+	}
+	/*------------------------------------------------------------*/
+	private function stdConds() {
+		$userCond = $this->userCond();
+		$projectCond = $this->projectCond();
+		$stdConds = "$userCond and $projectCond";
+		return($stdConds);
+	}
+	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
 	private function redir() {
 		$this->redirect("/");
