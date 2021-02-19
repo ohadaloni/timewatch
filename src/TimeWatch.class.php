@@ -123,8 +123,8 @@ class TimeWatch extends Mcontroller {
 			return;
 		$userCond = $this->userCond();
 	
-		$fields = "month,project";
-		$orderBy = "month,project";
+		$fields = "month, project";
+		$orderBy = "order by month, project";
 		$sql = "select distinct $fields from timewatch where $userCond $orderBy";
 		$monthProjectPairs = $this->Mmodel->getRows($sql);
 
@@ -328,6 +328,7 @@ class TimeWatch extends Mcontroller {
 			$totalMinutes,
 			$totalTime,
 		);
+		$user = $this->loginName;
 		$this->exportToExcel($rows, "timewatch.$user.$project.$month");
 	}
 	/*------------------------------------------------------------*/
