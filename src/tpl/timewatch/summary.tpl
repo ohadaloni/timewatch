@@ -22,7 +22,7 @@
 					title="details"
 				/></a></td>
 				<td>
-					<a href="/timewatch/export?month={$row.month}"><img
+					<a href="/timewatch/export?month={$row.month}&project={$row.project}"><img
 						border="0"
 						title="export"
 						src="/images/excel.png"
