@@ -2,7 +2,7 @@
 /*------------------------------------------------------------*/
 error_reporting(E_ALL | E_NOTICE | E_STRICT );
 /*------------------------------------------------------------*/
-date_default_timezone_set("UTC");
+date_default_timezone_set("Asia/Jerusalem");
 /*------------------------------------------------------------*/
 define('M_DIR', "/var/www/vhosts/M.theora.com");
 define('TAS_DIR', "/var/www/vhosts/tas.theora.com");
