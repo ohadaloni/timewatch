@@ -32,7 +32,9 @@
 		{/foreach}
 		<tr class="timeWatchHeaderRow">
 			<td>Total:</td>
+			<td></td>
 			<td>{$totalTime}</td>
+			<td></td>
 			<td></td>
 		<tr>
 	</table>
