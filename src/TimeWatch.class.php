@@ -122,10 +122,17 @@ class TimeWatch extends Mcontroller {
 		if ( ! $this->loginId )
 			return;
 		$userCond = $this->userCond();
+
+		$project = @$_REQUEST['project'];
+		if ( $project )
+			$projectCond = "project = '$project'";
+		else
+			$projectCond = "true";
+		$conds = "$userCond and $projectCond";
 	
 		$fields = "month, project";
 		$orderBy = "order by month, project";
-		$sql = "select distinct $fields from timewatch where $userCond $orderBy";
+		$sql = "select distinct $fields from timewatch where $conds $orderBy";
 		$monthProjectPairs = $this->Mmodel->getRows($sql);
 
 		$summary = array();
