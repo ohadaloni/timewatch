@@ -77,6 +77,12 @@ class Menu extends Mcontroller {
 					'url' => "/timewatch/summary",
 				),
 			);
+			if ( $thisProject )
+				$timeWatchMenu[] = array(
+					'name' => 'projectSummary',
+					'title' => "$thisProject Summary",
+					'url' => "/timewatch/summary?project=$thisProject",
+				);
 
 		}
 		$adminMenu = array(
