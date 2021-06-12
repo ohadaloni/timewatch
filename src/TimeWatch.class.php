@@ -237,11 +237,9 @@ class TimeWatch extends Mcontroller {
 			$fname = 'timeOut';
 
 		$row[$fname] = $now;
-		$totalTime = $this->totalTime($row);
 
 		$this->Mmodel->dbUpdate("timewatch", $row['id'], array(
 			$fname => $now,
-			'totalTime' => $totalTime,
 		));
 		$this->redir();
 	}
