@@ -224,11 +224,15 @@ class TimeWatch extends Mcontroller {
 		$sql = "select * from timewatch where user = '$user' and date = '$today'";
 		$row = $this->Mmodel->getRow($sql);
 		if ( ! $row ) {
+			$yesterday = date("Y-m-d", time() - 24*3600);
+			$sql = "select * from timewatch where user = '$user' and date = '$yesterday'";
+			$row = $this->Mmodel->getRow($sql);
+		}
+		if ( ! $row ) {
 			$this->Mview->error("No entry for today");
 			$this->redir();
 			return;
 		}
-
 		if ( $row['timeIn3'] )
 			$fname = 'timeOut3'; // possibly running over previous
 		elseif ( $row['timeIn2'] )
