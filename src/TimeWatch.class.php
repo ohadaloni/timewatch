@@ -539,6 +539,8 @@ class TimeWatch extends Mcontroller {
 		$inSecs = strtotime($timeIn);
 
 		$secsDiff = $outSecs - $inSecs ;
+		if ( $secsDiff < 0 )
+			$secsDiff += 24*3600;
 		$minuteDiff = round($secsDiff/60);
 		return($minuteDiff);
 	}
