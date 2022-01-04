@@ -229,7 +229,7 @@ class TimeWatch extends Mcontroller {
 			$row = $this->Mmodel->getRow($sql);
 		}
 		if ( ! $row ) {
-			$this->Mview->error("No entry for today");
+			$this->Mview->error("No entry for today nor yesterday");
 			$this->redir();
 			return;
 		}
