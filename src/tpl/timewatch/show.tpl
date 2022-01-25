@@ -2,7 +2,7 @@
 	<table>
 		<tr class="timeWatchHeaderRow">
 			<td>
-				<a href="/timewatch/export?month={$month}"><img
+				<a href="/timewatch/export?month={$month}&project={$project}"><img
 					border="0"
 					title="export"
 					src="/images/excel.png"
