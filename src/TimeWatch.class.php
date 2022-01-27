@@ -181,6 +181,11 @@ class TimeWatch extends Mcontroller {
 	public function in() {
 		if ( ! $this->loginId )
 			return;
+		$project = $this->project;
+		if ( ! $project ) {
+			$this->Mview->error("TimeWatch::in: no Project in cookie");
+			return;
+		}
 		$month = date("Y-m");
 		$today = date("Y-m-d");
 		$now = date("Y-m-d H:i:s");
@@ -206,7 +211,7 @@ class TimeWatch extends Mcontroller {
 		} else {
 			$this->Mmodel->dbInsert("timewatch", array(
 				'user' => $user,
-				'project' => $this->project,
+				'project' => $project,
 				'month' => $month,
 				'date' => $today,
 				'timeIn' => $now,
@@ -522,7 +527,8 @@ class TimeWatch extends Mcontroller {
 		$t3 = $this->minuteDiff($row['timeOut3'], $row['timeIn3']);
 		$totalTime = $t1 + $t2 + $t3;
 		$today = date("Y-m-d");
-		if ( $row['date'] != $today )
+		$yesterday = date("Y-m-d", time() - 24*3600);
+		if ( $row['date'] != $today && $row['date'] != $yesterday )
 			return($totalTime);
 		$now = date("Y-m-d H:i:s");
 		if ( $row['timeIn'] && ! $row['timeOut'] )
@@ -572,22 +578,6 @@ class TimeWatch extends Mcontroller {
 		$user = $this->loginName;
 		$userCond = "user = '$user'";
 		return($userCond);
-	}
-	/*------------------------------------------------------------*/
-	private function projectCond() {
-		$project = $this->project;
-		if ( $project )
-			$projectCond = "project = '$project'";
-		else
-			$projectCond = "true";
-		return($projectCond);
-	}
-	/*------------------------------------------------------------*/
-	private function stdConds() {
-		$userCond = $this->userCond();
-		$projectCond = $this->projectCond();
-		$stdConds = "$userCond and $projectCond";
-		return($stdConds);
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
