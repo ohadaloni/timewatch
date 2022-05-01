@@ -8,8 +8,6 @@ class TimeWatch extends Mcontroller {
 	/*------------------------------*/
 	protected $project;
 	/*------------------------------*/
-	protected $Mmemcache;
-	/*------------------------------*/
 	private $startTime;
 	/*------------------------------------------------------------*/
 	public function __construct() {
@@ -21,7 +19,6 @@ class TimeWatch extends Mcontroller {
 		$this->loginType = TimeWatchLogin::loginType();
 		$this->project = @$_COOKIE['project'];
 
-		$this->Mmemcache = new Mmemcache;
 		Mutils::setenv("debugLevel", 1);
 	}
 	/*------------------------------------------------------------*/
