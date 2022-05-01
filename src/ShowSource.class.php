@@ -3,7 +3,7 @@
 class ShowSource extends TimeWatch {
 	/*------------------------------------------------------------*/
 	public function index() {
-		$files = $this->files();
+		$files = $this->fileList();
 		$file = @$_REQUEST['file'];
 		if ( $file ) {
 			$source = highlight_file($file, true);
@@ -15,7 +15,7 @@ class ShowSource extends TimeWatch {
 		));
 	}
 	/*------------------------------------------------------------*/
-	private function files() {
+	private function fileList() {
 		$files = `echo *.php tpl/*.tpl`;
 		$files = preg_split('/\s+/', $files);
 		array_pop($files);
