@@ -19,7 +19,6 @@ class TimeWatch extends Mcontroller {
 		$this->loginType = TimeWatchLogin::loginType();
 		$this->project = @$_COOKIE['project'];
 
-		Mutils::setenv("debugLevel", 1);
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
