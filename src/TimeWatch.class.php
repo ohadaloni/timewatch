@@ -201,11 +201,11 @@ class TimeWatch extends Mcontroller {
 			else
 				$fname = 'timeIn';
 
-			$this->Mmodel->dbUpdate("timewatch", $row['id'], array(
+			$this->dbUpdate("timewatch", $row['id'], array(
 				$fname => $now,
 			));
 		} else {
-			$this->Mmodel->dbInsert("timewatch", array(
+			$this->dbInsert("timewatch", array(
 				'user' => $user,
 				'project' => $project,
 				'month' => $month,
@@ -243,7 +243,7 @@ class TimeWatch extends Mcontroller {
 
 		$row[$fname] = $now;
 
-		$this->Mmodel->dbUpdate("timewatch", $row['id'], array(
+		$this->dbUpdate("timewatch", $row['id'], array(
 			$fname => $now,
 		));
 		$this->redir();
@@ -285,7 +285,7 @@ class TimeWatch extends Mcontroller {
 					$row[$fname] = "$date $time";
 			}
 		}
-		$this->Mmodel->dbUpdate("timewatch", $id, $row);
+		$this->dbUpdate("timewatch", $id, $row);
 		$this->redir();
 	}
 	/*------------------------------------------------------------*/
@@ -475,7 +475,7 @@ class TimeWatch extends Mcontroller {
 			return;
 		}
 		$newDbPasswd = sha1($newPasswd);
-		$this->Mmodel->dbUpdate("users", $loginRow['id'], array(
+		$this->dbUpdate("users", $loginRow['id'], array(
 			'passwd' => $newDbPasswd,
 		));
 		$this->Mview->msg("Password changed");
@@ -574,6 +574,35 @@ class TimeWatch extends Mcontroller {
 		$user = $this->loginName;
 		$userCond = "user = '$user'";
 		return($userCond);
+	}
+	/*------------------------------------------------------------*/
+	protected function dbInsert($tableName, $data) {
+		if ( $this->loginName )
+			return($this->Mmodel->dbInsert($tableName, $data));
+		$this->Mview->msg("Not logged in. insert ignored");
+		return(null);
+	}
+	/*------------------------------*/
+	protected function dbUpdate($tableName, $id, $data) {
+		if ( $this->loginName )
+			return($this->Mmodel->dbUpdate($tableName, $id, $data));
+		$this->Mview->error("Not logged in. Update ignored");
+		return(null);
+	}
+	/*------------------------------*/
+	protected function dbDelete($tableName, $id) {
+		if ( $this->loginName )
+			return($this->Mmodel->dbDelete($tableName, $id));
+		$this->Mview->error("Not logged in. delete ignored");
+		return(null);
+	}
+	/*------------------------------*/
+	protected function sql($sql) {
+		if ( $this->loginName )
+			return($this->Mmodel->sql($sql));
+		$this->Mview->error("Not logged in. db change ignored");
+		return(null);
+		
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
