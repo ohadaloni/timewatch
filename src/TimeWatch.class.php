@@ -10,8 +10,9 @@ class TimeWatch extends Mcontroller {
 	/*------------------------------*/
 	private $startTime;
 	/*------------------------------------------------------------*/
-	public function __construct() {
+	public function __construct($startTime) {
 		parent::__construct();
+		$this->startTime = $startTime;
 
 		$timeWatchLogin = new TimeWatchLogin;
 		$this->loginId = TimeWatchLogin::loginId();
@@ -39,7 +40,6 @@ class TimeWatch extends Mcontroller {
 		ini_set('max_execution_time', 10);
 		ini_set("memory_limit", "5M");
 
-		$this->startTime = microtime(true);
 		$this->Mview->assign(array(
 			'controller' => $this->controller,
 			'action' => $this->action,
