@@ -30,7 +30,8 @@ if ( isset($_REQUEST['logOut']) ) {
 } else {
 	$timeWatchLogin->enterSession();
 }
-$timeWatch = new TimeWatch($startTime);
+$timeWatch = new TimeWatch;
+$timeWatch->setStartTime($startTime);
 $timeWatch->control();
 $Mview->flushOutput();
 /*------------------------------------------------------------*/
