@@ -7,12 +7,9 @@ class TimeWatch extends Mcontroller {
 	protected $loginType;
 	/*------------------------------*/
 	protected $project;
-	/*------------------------------*/
-	private $startTime;
 	/*------------------------------------------------------------*/
-	public function __construct($startTime) {
+	public function __construct() {
 		parent::__construct();
-		$this->startTime = $startTime;
 
 		$timeWatchLogin = new TimeWatchLogin;
 		$this->loginId = TimeWatchLogin::loginId();
@@ -59,7 +56,6 @@ class TimeWatch extends Mcontroller {
 	protected function after() {
 		if ( ! $this->showMargins())
 			return;
-		$this->Mview->runningTime($this->startTime);
 		$this->Mview->showTpl("footer.tpl");
 		$this->Mview->showTpl("foot.tpl");
 	}
