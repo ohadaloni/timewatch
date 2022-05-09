@@ -16,7 +16,7 @@
 		</td>
 		<td valign="top">
 			{if $file}
-				<h4>{$file}</h4>
+				<h4>{$fileName}</h4>
 				{$source}
 			{/if}
 		</td>
