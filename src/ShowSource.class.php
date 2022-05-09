@@ -10,6 +10,7 @@ class ShowSource extends TimeWatch {
 		}
 		$this->Mview->showTpl("showSource/showSource.tpl",  array(
 			'files' => $files,
+			'fileName' => $file,
 			'source' => @$source,
 
 		));
