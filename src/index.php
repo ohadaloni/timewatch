@@ -5,6 +5,8 @@ require_once(M_DIR."/mfiles.php");
 require_once("timeWatchFiles.php");
 require_once("TimeWatch.class.php");
 /*------------------------------------------------------------*/
+$startTime = microtime(true);
+/*------------------------------------------------------------*/
 $ua = @$_SERVER['HTTP_USER_AGENT'];
 if (
 	! $ua
@@ -28,7 +30,7 @@ if ( isset($_REQUEST['logOut']) ) {
 } else {
 	$timeWatchLogin->enterSession();
 }
-$timeWatch = new TimeWatch;
+$timeWatch = new TimeWatch($startTime);
 $timeWatch->control();
 $Mview->flushOutput();
 /*------------------------------------------------------------*/
