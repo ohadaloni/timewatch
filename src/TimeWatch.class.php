@@ -480,8 +480,8 @@ class TimeWatch extends Mcontroller {
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
 	private function totalTimeFmt($totalMinutes) {
-		$minutes = $totalMinutes % 60 ;
-		$hours = ( $totalMinutes - $minutes ) / 60 ;
+		$minutes = $totalMinutes % 60;
+		$hours = ( $totalMinutes - $minutes ) / 60;
 		$totalTimeFmt = sprintf("%d:%02d", $hours, $minutes);
 		return($totalTimeFmt);
 	}
@@ -535,12 +535,12 @@ class TimeWatch extends Mcontroller {
 	private function minuteDiff($timeOut, $timeIn) {
 		$nullTime = "0000-00-00 00:00:00";
 		if ( ! $timeOut || ! $timeIn ||
-				$timeIn == $nullTime || $timeOut  == $nullTime )
+				$timeIn == $nullTime || $timeOut == $nullTime )
 			return(0);
 		$outSecs = strtotime($timeOut);
 		$inSecs = strtotime($timeIn);
 
-		$secsDiff = $outSecs - $inSecs ;
+		$secsDiff = $outSecs - $inSecs;
 		if ( $secsDiff < 0 )
 			$secsDiff += 24*3600;
 		$minuteDiff = round($secsDiff/60);
