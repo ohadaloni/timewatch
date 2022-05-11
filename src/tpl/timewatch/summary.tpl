@@ -18,7 +18,7 @@
 				<td><a href="/timeWatch/show?month={$row.month}&project={$row.project}"><img
 					border="0"
 					src="/images/list.png"
-					alt="details"
+					
 					title="details"
 				/></a></td>
 				<td>
