@@ -8,7 +8,7 @@ class ShowSource extends TimeWatch {
 		if ( $file ) {
 			$source = highlight_file($file, true);
 		}
-		$this->Mview->showTpl("showSource/showSource.tpl",  array(
+		$this->Mview->showTpl("showSource/showSource.tpl", array(
 			'files' => $files,
 			'fileName' => $file,
 			'source' => @$source,
