@@ -12,7 +12,7 @@ class Menu extends Mcontroller {
 	private function dd($thisProject) {
 		$loginName = TimeWatchLogin::loginName();
 		if ( $loginName ) {
-			$sql = "select distinct project from timewatch where  user = '$loginName'";
+			$sql = "select distinct project from timewatch where user = '$loginName'";
 			$projects = $this->Mmodel->getStrings($sql);
 			if ( $thisProject )
 				$projectMenuTitle = "project: $thisProject";
