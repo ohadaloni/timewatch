@@ -31,6 +31,10 @@ body {
 	text-align: right;
 }
 
+form {
+	display:inline;
+}
+
 form input {
 	background-color: inherit ;
 }
