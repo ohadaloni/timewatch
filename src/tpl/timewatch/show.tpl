@@ -37,7 +37,7 @@
 			</tr>
 		{/foreach}
 		<tr class="timeWatchHeaderRow">
-			<td></td>
+			<td>{$now}</td>
 			<td>date</td>
 			<td>in</td>
 			<td>out</td>
