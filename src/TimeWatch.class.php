@@ -253,7 +253,7 @@ class TimeWatch extends Mcontroller {
 		$row['timeIn2'] = $this->timeFmt($row['timeIn2']);
 		$row['timeOut2'] = $this->timeFmt($row['timeOut2']);
 		$row['timeIn3'] = $this->timeFmt($row['timeIn3']);
-		$row['timeOut3'] = $this->timeFmt($row['timeIn3']);
+		$row['timeOut3'] = $this->timeFmt($row['timeOut3']);
 		$this->Mview->showTpl("timewatch/edit.tpl", array(
 			'row' => $row,
 		));
