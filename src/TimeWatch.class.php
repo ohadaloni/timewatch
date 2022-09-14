@@ -105,6 +105,7 @@ class TimeWatch extends Mcontroller {
 			'month' => $month,
 			'project' => $project,
 			'today' => date("Y-m-d"),
+			'now' => date("G:i"),
 			'yesterday' => date("Y-m-d", time() - 24*60*60),
 			'totalTimeFmt' => $totalTimeFmt,
 		));
