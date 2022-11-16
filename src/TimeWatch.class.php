@@ -269,8 +269,8 @@ class TimeWatch extends Mcontroller {
 			$substr = substr($fname, 0, 6);
 			if ( $substr != "timeIn" && $substr != "timeOu" )
 				continue;
-			if ( $row[$fname] == "null" ) {
-				// typed 'null'
+			if ( $row[$fname] == "00:00" ) {
+				// 12 AM sharp means 'erase it'
 				$row[$fname] = null;
 			} else {
 				$time = $this->timeScan($row[$fname]);
