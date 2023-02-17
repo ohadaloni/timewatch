@@ -39,6 +39,7 @@
 		<tr class="timeWatchHeaderRow">
 			{if $monthly}
 				<td colspan="8">
+					Totals:
 					{$monthLength}/{$daysLeft}
 					{$monthly}/{$monthlyLeft}/{$dailyLeft|numberFormat:1}</td>
 			{else}
