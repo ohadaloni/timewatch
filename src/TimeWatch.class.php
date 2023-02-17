@@ -5,8 +5,9 @@ class TimeWatch extends Mcontroller {
 	protected $loginName;
 	protected $loginId;
 	protected $loginType;
+	private $monthly;
 	/*------------------------------*/
-	protected $project;
+	private $project;
 	/*------------------------------------------------------------*/
 	public function __construct() {
 		parent::__construct();
@@ -16,7 +17,7 @@ class TimeWatch extends Mcontroller {
 		$this->loginName = TimeWatchLogin::loginName();
 		$this->loginType = TimeWatchLogin::loginType();
 		$this->project = @$_COOKIE['project'];
-
+		$this->monthly = @$_COOKIE['monthly'];
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
@@ -37,6 +38,11 @@ class TimeWatch extends Mcontroller {
 		ini_set('max_execution_time', 10);
 		ini_set("memory_limit", "5M");
 
+		$monthly = @$_REQUEST['monthly'];
+		if ( $monthly ) {
+			$this->Mview->setCookie("monthly", $monthly);
+			$this->monthly = $monthly;
+		}
 		$this->Mview->assign(array(
 			'controller' => $this->controller,
 			'action' => $this->action,
@@ -45,6 +51,7 @@ class TimeWatch extends Mcontroller {
 			$this->Mview->showTpl("head.tpl");
 			$this->Mview->showTpl("header.tpl");
 			$this->Mview->assign("RE_CAPTACH_SITE_KEY", RE_CAPTACH_SITE_KEY);
+			$this->Mview->register_modifier("numberFormat", array("Mutils", "numberFormat"));
 			if ( $this->loginId ) {
 				$menu = new Menu();
 				$menu->index($this->project);
@@ -100,9 +107,26 @@ class TimeWatch extends Mcontroller {
 		}
 		$totalTime = array_sum(Mutils::arrayColumn($rows, "totalTime"));
 		$totalTimeFmt = $this->totalTimeFmt($totalTime);
+		$monthDays = $monthlyLeft = $daysLeft =  $dailyLeft = 0;
+		if ( $this->monthly ) {
+			$monthlyLeft = $this->monthly - $totalTimeFmt ;
+			$thisYear = date("Y");
+			$thisMonth = date("m");
+			$dayOfMonth = date("d");
+			$monthLength = Mdate::monthLength($thisMonth, $thisYear);
+			$daysLeft = $monthLength - $dayOfMonth;
+			$dailyLeft = $monthlyLeft / $daysLeft;
+		}
+		Mview::print_r($dailyLeft, "dailyLeft", basename(__FILE__), __LINE__, null, false);
 		$this->Mview->showTpl("timewatch/show.tpl", array(
 			'rows' => $rows,
 			'month' => $month,
+			'monthly' => $this->monthly,
+			'monthLength' => $monthLength,
+			'monthDays' => $monthDays,
+			'daysLeft' => $daysLeft,
+			'monthlyLeft' => $monthlyLeft,
+			'dailyLeft' => $dailyLeft,
 			'project' => $project,
 			'today' => date("Y-m-d"),
 			'now' => date("G:i"),
