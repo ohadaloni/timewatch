@@ -37,14 +37,13 @@
 			</tr>
 		{/foreach}
 		<tr class="timeWatchHeaderRow">
-			<td>{$now}</td>
-			<td>date</td>
-			<td>in</td>
-			<td>out</td>
-			<td>in</td>
-			<td>out</td>
-			<td>in</td>
-			<td>out</td>
+			{if $monthly}
+				<td colspan="8">
+					{$monthLength}/{$daysLeft}
+					{$monthly}/{$monthlyLeft}/{$dailyLeft|numberFormat:1}</td>
+			{else}
+				<td colspan="8"></td>
+			{/if}
 			<td>{$totalTimeFmt}</td>
 		<tr>
 	</table>
