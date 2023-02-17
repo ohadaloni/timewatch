@@ -114,7 +114,7 @@ class TimeWatch extends Mcontroller {
 			$thisMonth = date("m");
 			$dayOfMonth = date("d");
 			$monthLength = Mdate::monthLength($thisMonth, $thisYear);
-			$daysLeft = $monthLength - $dayOfMonth;
+			$daysLeft = $monthLength - $dayOfMonth + 1; // 1 for today
 			$dailyLeft = $monthlyLeft / $daysLeft;
 		}
 		$this->Mview->showTpl("timewatch/show.tpl", array(
